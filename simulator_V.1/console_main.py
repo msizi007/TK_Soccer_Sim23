@@ -130,6 +130,7 @@ class Game:
     
     def _Squad(self):
         self.ply_squad_Obj._ShowSquad()
+        opt = input("ENTER <<PLAYER NUMBER>> OR ENTER <</BACK>> TO GO BACK!::> ")
         self._Run()
 
     def _League(self):
