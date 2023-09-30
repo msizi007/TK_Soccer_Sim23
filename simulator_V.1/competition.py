@@ -1,4 +1,5 @@
 from gamedata import *
+from tabulate import tabulate
 
 class League:
 
@@ -33,12 +34,6 @@ class League:
     def display_LeagueTable(self):
         self._Sort_League_Points()
         self._Sort_League_Stats() 
-        print("*************************************************************************************")
-        print("Name\t\tP\tW\tD\tL\tGF\tGA\tGA\tPTS")
-        print("*************************************************************************************")
-        for club in self.sorted_clubs:
-            if self.ply_club == club:
-                print(f"{club.name}\t{club.P}\t{club.W}\t{club.D}\t{club.L}\t{club.GF}\t{club.GA}\t{club.GD}\t{club.PTS}\t<=")
-            else:
-                print(f"{club.name}\t{club.P}\t{club.W}\t{club.D}\t{club.L}\t{club.GF}\t{club.GA}\t{club.GD}\t{club.PTS}")
-        print("*************************************************************************************")
+
+        teams_data = [(f"**{club.name}**" if self.ply_club == club else club.name, club.P, club.W, club.D, club.L, club.GF, club.GA, club.PTS) for club in self.sorted_clubs]
+        print(tabulate(teams_data, ["Name", "P", "W", "D", "L", "GF", "GA", "PTS"], "fancy_grid"))
