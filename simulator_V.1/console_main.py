@@ -9,7 +9,7 @@ from simdemo import Simulator
 from fixtures import Fixtures
 from competition import League
 from transfers import Transfers
-from tabulate import tabulate
+# from tabulate import tabulate
 
 # NEXT UPDATE
 # download game data (players, teams, etc..) as json data.

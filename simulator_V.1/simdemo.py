@@ -1,7 +1,9 @@
-
+"Import random.."
 import random
 
+
 class Simulator:
+    "Class that runs match simulations"
     
     def __init__(self, team1, team2):
         self.team1 = team1
@@ -19,6 +21,7 @@ class Simulator:
         self.team2_goal_scorers_by_names = []
         
     def to_nearest(self, number: float):
+        "convert decimal number to it's nearest form (1.58 => 2), (1.23 => 1)"
         integer, dec_points = str(number).split(".")
         
         integer = int(integer)
@@ -29,21 +32,22 @@ class Simulator:
         
     def simulate_scores(self):
         # formula = ((avg +motivation)/2)%random.randint(11, 13)
-        team1_score_T1 = ((self.team1_motivation+self.team1_avg)/2)%random.randint(1, self.team1_avg//10)
-        team1_score_T2 = ((self.team1_motivation+self.team1_avg)/2)%random.randint(1, self.team1_avg//10)
+        team1_score_t1 = ((self.team1_motivation+self.team1_avg)/2)%random.randint(1, self.team1_avg//10)
+        team1_score_t2 = ((self.team1_motivation+self.team1_avg)/2)%random.randint(1, self.team1_avg//10)
         
-        team2_score_T1 = ((self.team2_motivation+self.team2_avg)/2)%random.randint(1, self.team1_avg//10)
-        team2_score_T2 = ((self.team2_motivation+self.team2_avg)/2)%random.randint(1, self.team1_avg//10)
+        team2_score_t1 = ((self.team2_motivation+self.team2_avg)/2)%random.randint(1, self.team1_avg//10)
+        team2_score_t2 = ((self.team2_motivation+self.team2_avg)/2)%random.randint(1, self.team1_avg//10)
         
-        team_1_FinalScore = (team1_score_T1+team1_score_T2)/3
-        team_2_FinalScore = (team2_score_T1+team2_score_T2)/3
+        team_1_finalscore = (team1_score_t1+team1_score_t2)/3
+        team_2_finalscore = (team2_score_t1+team2_score_t2)/3
         
-        team_1_FinalScore = self.to_nearest(team_1_FinalScore)
-        team_2_FinalScore = self.to_nearest(team_2_FinalScore)
+        team_1_finalscore = self.to_nearest(team_1_finalscore)
+        team_2_finalscore = self.to_nearest(team_2_finalscore)
             
-        self.final_score = (team_1_FinalScore, team_2_FinalScore)
+        self.final_score = (team_1_finalscore, team_2_finalscore)
     
     def simulate_goal_scorers(self):
+        "method that simulate all goal scorers in a match"
         scores = self.final_score
         team_1_score, team_2_score = scores
         
@@ -59,12 +63,14 @@ class Simulator:
                 self.team2_goal_scorers_by_names.append(goal_scorrer.name)
                 
     def config_players(self):
+        "add goals to all goal scorres"
         for ply in self.team1_goal_scorers:
             ply.G += 1
         for ply in self.team2_goal_scorers:
             ply.G += 1
             
     def config_teams(self):
+        "add W, D, L, GA, GD, PTS to teams after simulation"
         self.team1.P += 1
         self.team2.P += 1
         if self.final_score[0] > self.final_score[1]:
@@ -82,11 +88,13 @@ class Simulator:
         self.team2.GA += self.final_score[0]
         
     def show_results(self):
+        "method that displys results after simulation"
         print(f"{self.team1.name} {self.final_score[0]} : {self.final_score[1]} {self.team2.name}")
         print(f"Team 1 scorers : {self.team1_goal_scorers_by_names}")
         print(f"Team 2 scorers : {self.team2_goal_scorers_by_names}")
                         
     def simulate(self):
+        "method to start simulation"
         self.simulate_scores()
         self.simulate_goal_scorers()
         self.config_players()
